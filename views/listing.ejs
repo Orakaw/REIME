@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+  </head>
+  <body>
+    <h1>R.E.I.M.E APP</h1>
+    <h2>Real Estate Investing Made Easy for Beginner Investors</h2>
+
+    <div class="col-sm-6">
+      <h3><%= `${listing.Address} ${listing.City}, ${listing.State}` %></h3>
+
+      <img src="/<%= listing.img %>">
+    </div>
+
+    <% if (user.local.email) { %>
+      <form action="/api/bids/<%= listing._id %>" method="POST">
+        <input hidden type="text" value="<%= user.local.email %>" name="user">
+        <input hidden type="text" value="" name="listingId">
+        <input type="number" placeholder="amount" name="amount">
+        <button type="submit">Submit</button>
+      </form>
+    <% } %>
+
+    <% if (bids.length > 0) { %>
+    <div class="col-sm-6">
+      <h3>Current Bids</h3>
+      <ul class="bids">
+      <% for(var i=0; i<bids.length; i++) {%>
+        <li class="bid">
+          <span><%= bids[i].user %></span>
+          <span><%= bids[i].amount %></span>
+        </li>
+      <% } %>
+      </ul>
+    </div>
+    <% } %>
+
+  </body>
+</html>
